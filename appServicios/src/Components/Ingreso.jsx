@@ -1,20 +1,58 @@
-import React from 'react';
-import './ingreso.css'
-import {Row,Col,Flex,Input,Button} from 'antd';
-import {UserOutlined,LockOutlined} from '@ant-design/icons';
+import React, { useState } from 'react';
+import './ingreso.css';
+import { Row, Col, Flex, Input, Button } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const Ingreso = () => {
+    const [ingresoValues, setIngresoValues] = useState({
+        correo: '',
+        contrasena: ''
+    });
+
+    // 1. Recibimos el 'name' directamente como parámetro y 'e' para sacar el valor
+    const handleIngresoChange = (name, e) => {
+
+        setIngresoValues({
+            ...ingresoValues,
+            [name]: e.target.value
+        });
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Correo:', ingresoValues.correo);
+        console.log('Contraseña:', ingresoValues.contrasena);
+    }
+
   return (
-  <Row justify="center">
-  <Col xs={24} sm={16} md={12} lg={8}>
-    <Flex vertical gap="medium">
-      <Input size="large" placeholder="Correo" />
-      <Input size="large" placeholder="Contraseña" />
-      <Button color="purple" size="large" variant="solid">Ingresar</Button>
-    </Flex>
-  </Col>
-</Row>
-  )
+    <Row justify="center">
+      <Col xs={24} sm={16} md={12} lg={8}>
+        <Flex vertical gap="middle" component="form" onSubmit={handleSubmit}>
+          {/* 2. Invocamos la función pasando 'correo' y el evento 'e' */}
+          <Input 
+            size="large" 
+            placeholder="Correo" 
+            prefix={<UserOutlined />}
+            value={ingresoValues.correo} 
+            onChange={(e) => handleIngresoChange('correo', e)} 
+          />
+          
+          {/* 3. Usamos Input.Password para ocultar la contraseña y pasamos 'contrasena' */}
+          <Input.Password 
+            size="large" 
+            placeholder="Contraseña" 
+            prefix={<LockOutlined />}
+            value={ingresoValues.contrasena} 
+            onChange={(e) => handleIngresoChange('contrasena', e)} 
+          />
+
+          <Button type="primary" htmlType="submit" size="large">
+            Ingresar
+          </Button>
+        </Flex>
+      </Col>
+    </Row>
+  );
 }
 
-export default Ingreso
+export default Ingreso;
