@@ -1,5 +1,6 @@
 import './App.css';
-import Init from './layouts/Init'
+import Init from './layouts/Init.jsx'
+
 function App() {
   return (
     <>
