@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './ingreso.css';
-import { Row, Col, Flex, Input, Button } from 'antd';
+import { Row, Col, Flex, Input, Button,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const Ingreso = () => {
+const Ingreso = ({onLoginSuccess}) => {
     const [ingresoValues, setIngresoValues] = useState({
         correo: '',
         contrasena: ''
@@ -20,6 +20,16 @@ const Ingreso = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if(ingresoValues.correo ==="fegadeveloper@gmail.com" && ingresoValues.contrasena ==="eduardo10"){
+            message.success('!Bienvenido!');
+
+            onLoginSuccess();
+        } else{
+            message.error('Correo o contraseña incorrectos');
+        }
+
+
         console.log('Correo:', ingresoValues.correo);
         console.log('Contraseña:', ingresoValues.contrasena);
     }
